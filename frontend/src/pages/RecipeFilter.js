@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Recipe.css';
 
-const Recipe = ({ id }) => {
+const RecipeFilterPage = () => {
+    const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/recipe/${id}`);
+                const response = await axios.get(`http://localhost:4000/api/recipe/${id}`);
                 setRecipe(response.data);
             } catch (err) {
                 console.error(err);
@@ -19,13 +21,13 @@ const Recipe = ({ id }) => {
     }, [id]);
 
     if (!recipe) return <div>Loading...</div>;
-
+    const imageUrl = `http://localhost:4000/uploads/${recipe.image}`;
     return (
-        <div className="recipe-container" style={{ backgroundImage: `url(${recipe.image})` }}>
+        <div className="recipe-container" style={{ backgroundImage: `url(${imageUrl})` }}>
             <div className="recipe-content">
                 <div className="recipe-header">
                     <h1>{recipe.recipeName}</h1>
-                    <img src={recipe.image} alt={recipe.name} className="recipe-image"/>
+                    <img src={imageUrl} alt={recipe.recipeName} className="recipe-image"/>
                 </div>
                 <h2>Ingredients</h2>
                 <ul>
@@ -42,4 +44,4 @@ const Recipe = ({ id }) => {
     );
 };
 
-export default Recipe;
+export default RecipeFilterPage;

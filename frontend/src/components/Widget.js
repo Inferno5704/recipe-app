@@ -1,10 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Widget = ({ dish }) => {
-  console.log('Dish:', dish); // Ensure dish object is received correctly
-  const imageUrl = `http://localhost:4000/uploads/${dish.image}`; // Construct the full URL for the image
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/recipe/${dish._id}`);
+  };
+
+  const imageUrl = `http://localhost:4000/uploads/${dish.image}`;
+
   return (
-    <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px', width: '200px' }}>
+    <div
+      onClick={handleClick}
+      style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px', width: '200px', cursor: 'pointer' }}
+    >
       <img src={imageUrl} alt={dish.recipeName} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
       <h3>{dish.recipeName}</h3>
       <p>{dish.description}</p>

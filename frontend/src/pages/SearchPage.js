@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/Searchbar';
 import Widget from '../components/Widget';
 import backgroundImage from '../assets/background2.png'; // Replace with your background image
-import Recipe from '../../../backend/model/Recipe';
 
 const SearchPage = () => {
   const [widgets, setWidgets] = useState([]);
@@ -53,7 +52,7 @@ const SearchPage = () => {
       {/* Widgets Section */}
       <div style={styles.widgetsContainer}>
         {widgets.map((widget) => (
-          <Widget key={widget._id} dish={widget} onClick=<RecipeFilter id={widget._id} />/>
+          <Widget key={widget._id} dish={widget} />
         ))}
       </div>
     </div>
