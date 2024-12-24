@@ -6,8 +6,7 @@ const recipeSchema = new mongoose.Schema({
   image: { type: String, required: true },
   ingredients: { type: [String], required: true },
   procedure: { type: [String], required: true },
-});
+}, 
+);
 
-const Recipe = mongoose.model('recipes', recipeSchema);
-
-module.exports = Recipe;
+module.exports = mongoose.model('recipe.recipe', recipeSchema);
