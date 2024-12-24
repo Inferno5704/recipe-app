@@ -6,10 +6,13 @@ const SignInPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  // Use environment variable for backend URL or fallback to localhost
+  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/api/auth/signin', {
+      const response = await fetch(`${backendURL}/api/auth/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

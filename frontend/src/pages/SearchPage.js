@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from '../components/Searchbar';
+import SearchBar from '../components/SearchBar';
 import Widget from '../components/Widget';
 import backgroundImage from '../assets/background2.png'; // Replace with your background image
 
@@ -11,12 +11,12 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/recipes');
+        const response = await fetch('http://localhost:4000/api/recipes'); // Use proxy in development
         if (!response.ok) {
           throw new Error('Failed to fetch recipes');
         }
         const data = await response.json();
-        console.log('Fetched recipes:', data); // Log fetched data
+        console.log('Fetched recipes:', data);
         setWidgets(data);
         setOriginalWidgets(data);
       } catch (error) {
@@ -25,12 +25,12 @@ const SearchPage = () => {
     };
 
     fetchRecipes();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []); // Run once on mount
 
   // Function to filter recipes based on search query
   const filterWidgets = (query) => {
     if (!query.trim()) {
-      setWidgets(originalWidgets); // Reset to all recipes when search query is empty
+      setWidgets(originalWidgets); // Reset to all recipes when search is cleared
       return;
     }
     const filteredWidgets = originalWidgets.filter((widget) =>
@@ -66,25 +66,24 @@ const styles = {
   },
   background: {
     position: 'absolute',
-    top: '0.5vh',
-    left: 0,
-    opacity:'0.8',
+    top: '0',
+    left: '0',
     width: '100%',
-    height: '50vh', // Adjust height of the background image section
+    height: '50vh',
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    zIndex: -1, // Place background behind content
+    zIndex: -1,
+    opacity: 0.8,
   },
   searchContainer: {
-    position: 'relative', // Relative to container
-    zIndex: 1, // Ensure search bar is above background image
+    position: 'relative',
+    zIndex: 1,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '20px',
-    boxSizing: 'border-box',
-    top:'20vh',
+    marginTop: '20vh',
   },
   widgetsContainer: {
     display: 'flex',
@@ -92,7 +91,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'flex-start',
     padding: '20px',
-    marginTop: '37vh', // Start widgets after background image
+    marginTop: '37vh',
   },
 };
 
