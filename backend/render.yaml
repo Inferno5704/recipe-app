@@ -1,0 +1,12 @@
+services:
+  - name: recipe-backend
+    type: web
+    env: node # Change to "python" if your backend uses Python
+    plan: free # Use the free plan (if available)
+    buildCommand: npm install # Command to install dependencies
+    startCommand: node server.js # Command to start your server
+    envVars:
+      - key: NODE_ENV
+        value: production
+    regions:
+      - oregon # Specify the preferred region
